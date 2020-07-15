@@ -7,23 +7,25 @@ import {connect, useDispatch, useSelector} from 'react-redux';
 import {increment, decrement} from '../../Redux/Action/increment';
 import setUserAction from '../../Redux/Action/setUserAction';
 import {USERDATA} from '../../Redux/ActionType';
+import incrementReducer from '../../Redux/Reducer/incrementReducer';
 
 export default function HomeScreen({
   navigation,
-  stateIncrement,
+  // stateIncrement,
   // penambahan,
   // pengurangan,
   // userData,
   // setUser,
 }) {
   const userData = useSelector(state => state.userDataReducer);
+  const incrementData = useSelector(state => state.incrementReducer);
   const actionRedux = useDispatch();
 
   return (
     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
       <Text>Home</Text>
       <View style={{backgroundColor: '#DBDBDB'}}>
-        <Text>State Redux Increment {stateIncrement}</Text>
+        <Text>State Redux Increment {incrementData}</Text>
         <Text>State Redux USER {JSON.stringify(userData, null, 3)}</Text>
 
         <TouchableOpacity
@@ -49,7 +51,7 @@ export default function HomeScreen({
             backgroundColor: 'red',
             borderRadius: 5,
           }}
-          onPress={() => penambahan()}>
+          onPress={() => actionRedux(increment())}>
           <Text style={{color: 'white', textAlign: 'center'}}>
             Do Increment
           </Text>
@@ -62,7 +64,7 @@ export default function HomeScreen({
             backgroundColor: 'red',
             borderRadius: 5,
           }}
-          onPress={() => pengurangan()}>
+          onPress={() => actionRedux(decrement())}>
           <Text style={{color: 'white', textAlign: 'center'}}>
             Do Decrement
           </Text>
